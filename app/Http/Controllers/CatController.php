@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Product;
+use App\Cat;
 
-class ProductController extends Controller
+class CatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $listProducts = Product::all();
-        //dd($listProducts);
-        return view('product.index',compact('listProducts'));
+        $listCats = Cat::all();
+        return view('cat.list_cat', ['listCats' => $listCats ]);
     }
 
     /**
@@ -48,9 +47,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
-      //  dd($product);
-        return view('product.show',[ 'product' => $product]);
+        //
     }
 
     /**

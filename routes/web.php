@@ -17,3 +17,6 @@ Route::get('/', function () {
 //show detail product
 Route::get('/products/{id}','ProductController@show');
 Route::get('/products','ProductController@index');
+
+//list cats
+Route::get('/cats','CatController@index');
