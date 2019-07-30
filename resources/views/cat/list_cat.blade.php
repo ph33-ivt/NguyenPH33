@@ -7,9 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-        <ul>
-           
-        </ul>
+    <div class="content">
+        <div class="title m-b-md">
+            List Cat
+        </div>
         <table class="table" border="1">
             <thead>
                 <tr>
@@ -18,9 +19,11 @@
                     <th>Age</th>
                     <th>Create At</th>
                     <th>Update At</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
+                <label for=""><a href="{{ route('form-create-cat')}}">Create</label>
                 @foreach($listCats as $cat)
                     <tr>
                         <td>{{$cat->id}}</td>
@@ -28,10 +31,11 @@
                         <td>{{$cat->age}}</td>
                         <td>{{$cat->created_at}}</td>
                         <td>{{$cat->updated_at}}</td>
+                        <td><a href="{{ route('delete-cat', $cat->id) }}">Delete</a></td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        
+    </div>   
 </body>
 </html>

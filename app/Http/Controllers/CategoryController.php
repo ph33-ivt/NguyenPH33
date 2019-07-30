@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Cat;
-use App\Breed;
+use App\Category;
+use App\Product;
 
-class CatController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,17 +15,9 @@ class CatController extends Controller
      */
     public function index()
     {
-        $listCats = Cat::all();
-        //$listCats = Cat::withTrashed()->get();
-        //\DB::enableQueryLog();
-        //$listCats = Cat::onlyTrashed()->get();
-        //dd(\DB::getQueryLog());
-        //$cat = Cat::withTrashed()->find(2);// tim lay lai thanh vien bi xoa de restore
-        //$cat->restore();
-       // dd('done');
-        //$cat = Cat::find(5);
-       // $cat->forceDelete($cat); // xoa mat luoon
-        return view('cat.list_cat', ['listCats' => $listCats ]);
+        $listCategories = Category::all();
+        //dd($listCategories);
+        return view('category.index',compact('listCategories'));
     }
 
     /**
@@ -35,12 +27,7 @@ class CatController extends Controller
      */
     public function create()
     {
-        $listBreeds = Breed::all();
-       $selectedID = Breed::where('id','3')->first()->id;
-        $listID = Breed::pluck('name','id');
-       //$listID = Breed::first()->id;
-       //dd($listID);
-        return view('cat.form-create',compact('listBreeds','selectedID','listID'));
+        //
     }
 
     /**
@@ -51,16 +38,7 @@ class CatController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all()); tất cả các dữ liệu truyền lên thì đều trong biến request
-        //$data = $request->all();
-        $data = $request->except('_token');
-        //$data = $request->only('name','age','breed_id')
-        //c1 : hàm insert
-       // $result = Cat::insert($data);
-       // dd($result);
-         $cat = Cat::create($data);
-         //dd($cat);
-         return redirect()->route('list-cat');
+        //
     }
 
     /**
@@ -71,7 +49,11 @@ class CatController extends Controller
      */
     public function show($id)
     {
-        //
+        //dd($id);
+        $singleCategory = Category::find($id);
+        $products = $singleCategory->products;
+        //dd($products);
+        return view('category.showallproduct',compact('products'));
     }
 
     /**
@@ -105,8 +87,6 @@ class CatController extends Controller
      */
     public function destroy($id)
     {
-        $cat = Cat::find($id);
-        $cat ->delete();
-        return redirect()->route('list-cat');
+        //
     }
 }

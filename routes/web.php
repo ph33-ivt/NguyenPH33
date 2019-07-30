@@ -19,4 +19,12 @@ Route::get('/products/{id}','ProductController@show');
 Route::get('/products','ProductController@index');
 
 //list cats
-Route::get('/cats','CatController@index');
+Route::get('/cats','CatController@index')->name('list-cat');
+Route::get('/category','CategoryController@index')->name('list-category');
+Route::get('category/{id}','CategoryController@show')->name('showproduct');
+//create show form cats
+Route::get('/cats/create','CatController@create')->name('form-create-cat');
+Route::post('/cats','CatController@store')->name('store-cat');
+//delete cats
+Route::get('/cats/{id}','CatController@destroy')->name('delete-cat');// có thể sử dụng route delete
+
