@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
             BreedsTableSeeder::class,
             CatsTableSeeder::class,
             CategoriesTableSeeder::class,
+            CountriesTableSeeder::class,
+            UsersTableSeeder::class,
+            PostsTableSeeder::class
             //ProductsTableSeeder::class,
          ]);
          

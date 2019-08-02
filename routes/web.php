@@ -27,4 +27,8 @@ Route::get('/cats/create','CatController@create')->name('form-create-cat');
 Route::post('/cats','CatController@store')->name('store-cat');
 //delete cats
 Route::get('/cats/{id}','CatController@destroy')->name('delete-cat');// có thể sử dụng route delete
+Route::get('/breed/{id}','BreedController@show')->name('form-create-cat');
+
+//list all post of country example hasManythour
+Route::get('/countries/{id}/posts','CountryController@listPostBycountryId')->name('listPostBycountryId');
 

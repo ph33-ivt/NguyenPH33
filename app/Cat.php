@@ -12,4 +12,9 @@ class Cat extends Model
     protected $fillable = [
         'name','age','breed_id'
     ];
+
+    public function breed()
+    {
+        return $this->belongsTo('App\Breed');
+    }
 }

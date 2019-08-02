@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Country;
 use Illuminate\Http\Request;
-use App\Breed;
-use App\Cat;
 
-class BreedController extends Controller
+class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,6 +26,13 @@ class BreedController extends Controller
     {
         //
     }
+    public function listPostBycountryId($id)
+    {
+        //$listPost = Country::find($id)->posts;
+        $country = Country::with('posts')->find($id);
+        dd($country);
+        return view('country.list-post',compact('listPost'));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -42,34 +48,21 @@ class BreedController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Country $country)
     {
-        //c1
-        // $breed = Breed::find($id);
-        //$listCat = $breed->cats()->where('name','nguyen')->get(); sử dụng query builder;
-        //dd($breed,$listCat);
-        //c2
-         $breed = Breed::with(['cats' => function($query){
-                 return $query->where('name', 'like' , '%' .'e'.'%')
-                              ->orwhere('age' ,'>=','10')->get();
-         }])->find($id);
-         dd($breed);
-        //$listCat = $breed->cats;        
-       // dd($breed->name,$listCat);
-        //return view('breed.show',compact('breed'));
-
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Country $country)
     {
         //
     }
@@ -78,10 +71,10 @@ class BreedController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Country $country)
     {
         //
     }
@@ -89,10 +82,10 @@ class BreedController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Country $country)
     {
         //
     }
