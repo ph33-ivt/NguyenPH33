@@ -29,9 +29,9 @@ class CountryController extends Controller
     public function listPostBycountryId($id)
     {
         //$listPost = Country::find($id)->posts;
-        $country = Country::with('posts')->find($id);
-        dd($country);
-        return view('country.list-post',compact('listPost'));
+        $listPostbyCountry = Country::with('posts')->find($id);
+     //  dd($listPost);
+        return view('country.list-post',compact('listPostbyCountry'));
     }
 
     /**

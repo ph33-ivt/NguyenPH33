@@ -23,15 +23,10 @@
                 </tr>
             </thead>
             <tbody>
-                <label for=""><a href="{{ route('form-create-cat')}}">Create</label>
-                @foreach($listCats as $cat)
+                @foreach($listPostbyCountry->posts as $post)
                     <tr>
-                        <td>{{$cat->id}}</td>
-                        <td>{{$cat->name}}</td>
-                        <td>{{$cat->age}}</td>
-                        <td>{{$cat->created_at}}</td>
-                        <td>{{$cat->updated_at}}</td>
-                        <td><a href="{{ route('delete-cat', $cat->id) }}">Delete</a></td>
+                        <td>{{$post->id}}</td>
+                        <td>{{$post->name}}</td>
                     </tr>
                 @endforeach
             </tbody>

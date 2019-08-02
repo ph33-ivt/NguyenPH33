@@ -75,14 +75,15 @@
                 <label for="">Age:</label>
                 <input type="text" name="age"><br>
                 <label for="">Breed ID</label>
+                    <select name="breed_id" id="">
+                    {{-- {!! Form::select('breed_id',  $listID , $selectedID , ['class' => 'form-control']) !!} --}}
+                     @foreach ($listBreeds as $key => $value)
+                     <option value="{{ $value->id }}" {{ $selectedID == $value->id ? 'selected="selected"' : '' }} >
+                            {{ $value->id }}
+                        </option>
 
-                    {!! Form::select('breed_id',  $listID , $selectedID , ['class' => 'form-control']) !!}
-                    <!-- @foreach ($listBreeds as $key => $value) -->
-                        <!-- <option value="{{ $value->id }}" {{ $selectedID == $value->id ? 'selected="selected"' : '' }} > 
-                            {{ $value->id }} 
-                        </option> -->
-                        
-                    <!-- @endforeach -->
+                     @endforeach }}
+                    </select>
                 <button type="submit">Create</button>
             </form>
         </div>
