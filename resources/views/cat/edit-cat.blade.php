@@ -66,19 +66,28 @@
     <body>
         <div class="content">
             <div class="title m-b-md">
-                List Cat
+                Edit Cat
             </div>
-            <form action="{{ route('store-cat') }}" method="post">
+            <form action="{{ route('cat-update', $cat->id) }}" method="post">
                 @csrf
+                @method('PUT')
                 <label for="">Name:</label>
-            <input type="text" name="name" value="{{old('name')}}"><br>
+                @if (old('age'))
+                <input type="text" name="name" value="{{old('name')}}"><br>
+                @else
+                <input type="text" name="name" value="{{$cat->name}}"><br>
+                @endif
                 @if ($errors->has('name'))
                     <div class="alert alert-danger" role="alert">
                         <strong>{{$errors->first('name')}}</strong>
                     </div>
                 @endif
                 <label for="">Age:</label>
+                @if (old('age'))
                 <input type="text" name="age" value="{{old('age')}}"><br>
+                @else
+                <input type="text" name="age" value="{{$cat->age}}"><br>
+                @endif
                 @if ($errors->has('age'))
                     <div class="alert alert-danger" role="alert">
                         <strong>{{$errors->first('age')}}</strong>
@@ -87,9 +96,15 @@
                 <label for="">Breed ID</label>
                     <select name="breed_id" id="">
                         @foreach ($listBreeds as $breed)
-                            <option value="{{$breed->id}}" {{$breed->id == old('breed_id') ? 'selected' : '' }}>
-                                {{$breed->name}}
-                            </option>
+                            @if (old('breed_id'))
+                                <option value="{{$breed->id}}" {{ $breed->id == old('breed_id') ? 'selected' : '' }}>
+                                    {{$breed->name}}
+                                </option>
+                            @else
+                                <option value="{{$breed->id}}" {{ $breed->id == $cat->breed_id ? 'selected' : '' }}>
+                                    {{$breed->name}}
+                                </option>
+                            @endif
                         @endforeach
 
                     {{-- {!! Form::select('breed_id',  $listID , $selectedID , ['class' => 'form-control']) !!} --}}

@@ -8,6 +8,9 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
         <!-- Styles -->
         <style>
@@ -80,7 +83,7 @@
                         </thead>
                         <tbody>
                             @foreach($breed->cats as $cat)
-                            <tr>
+                            <tr id="{{ $cat->id }} ">
                                 <td>{{ $cat->id }}</td>
                                 <td>{{ $cat->name }}</td>
                                 <td>{{ $cat->age }}</td>
@@ -90,5 +93,40 @@
                         </tbody>
                     </table>
             </div>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $(document).on('click','tr',function(){
+                        var catId = $(this).attr('id');
+                        //alert(catId);
+                       // ajax call api delete cat sau đó viết Route::get('/cats/{id}','API\CatController@destroy');
+
+                        $.ajax({
+                            url : '/api/cats/' + catId,
+                            type : 'GET',
+                            data : {},
+                            success : function(data){
+                                console.log(data);//hien thị đata
+                               // show ra cat list mà không phải load lại trang
+                                var html = '';//
+                                $.each(data.listCats , function(key,value){
+                                    html += '<tr id="' + value.id +  '">' +
+                                                '<td>' + value.id + '</td>' +
+                                                '<td>' + value.name + '</td>' +
+                                                '<td>' + value.age + '</td>' +
+                                                '<td>' + value.created_at + '</td>' +
+                                            '</tr>';
+                                });
+                                $('tbody').html('');// xóa tất cả html có tbody
+                                $('tbody').append(html);// truyền html mới vào
+                            },
+                            error : function(error){
+                                console.log(error);
+                            }
+                        });
+                    });
+                });
+            </script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -18,7 +18,6 @@ class CreateCatsTable extends Migration
             $table->string('name');
             $table->integer('age');
             $table->unsignedBigInteger('breed_id');
-            $table->foreign('breed_id')->references('id')->on('breeds');
             $table->timestamps();
             $table->softDeletes();
         });

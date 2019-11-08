@@ -13,6 +13,9 @@ class Cat extends Model
         'name','age','breed_id'
     ];
 
+
+    protected $dates = ['deleted_at'];
+
     public function breed()
     {
         return $this->belongsTo('App\Breed');

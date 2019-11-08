@@ -5,9 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Cat;
 use App\Breed;
+use App\Http\Requests\CreateCatRequest;
+use App\Http\Requests\UpdateCatRequest;
+
+//use Illuminate\Http\Request\;
 
 class CatController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //   //  $this->middleware('IsAdmin');
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -16,14 +25,19 @@ class CatController extends Controller
     public function index()
     {
         $listCats = Cat::all();
-        //$listCats = Cat::withTrashed()->get();
+        //$listCats = Cat::withTrashed()->get();//lấy tất cả con mèo kể cả bị xóa
+        //dd($listCats);
+
         //\DB::enableQueryLog();
         //$listCats = Cat::onlyTrashed()->get();
         //dd(\DB::getQueryLog());
         //$cat = Cat::withTrashed()->find(2);// tim lay lai thanh vien bi xoa de restore
         //$cat->restore();
-       // dd('done');
-        //$cat = Cat::find(5);
+        //dd($listCats)
+        //$cat = Cat::find(4);
+      // dd($cat);
+       // $cat->delete();
+        //dd($listCats);
        // $cat->forceDelete($cat); // xoa mat luoon
         return view('cat.list_cat', ['listCats' => $listCats ]);
     }
@@ -36,11 +50,11 @@ class CatController extends Controller
     public function create()
     {
         $listBreeds = Breed::all();
-       $selectedID = Breed::where('id','3')->first()->id;
-        $listID = Breed::pluck('name','id');
+        // $selectedID = Breed::where('id','3')->first()->id;
+        // $listID = Breed::pluck('name','id');
        //$listID = Breed::first()->id;
        //dd($listID);
-        return view('cat.form-create',compact('listBreeds','selectedID','listID'));
+        return view('cat.form-create',compact('listBreeds'));
     }
 
     /**
@@ -49,7 +63,7 @@ class CatController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateCatRequest $request)
     {
         //dd($request->all()); tất cả các dữ liệu truyền lên thì đều trong biến request
         //$data = $request->all();
@@ -82,7 +96,9 @@ class CatController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cat = Cat::find($id);
+        $listBreeds = Breed::all();
+        return view('cat.edit-cat',compact('cat','listBreeds'));
     }
 
     /**
@@ -92,9 +108,12 @@ class CatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCatRequest $request, $id)
     {
-        //
+        $data = $request->except('_token','_method');
+        $cat = Cat::find($id);
+        $cat->update($data);
+        return redirect()->route('list-cat');
     }
 
     /**

@@ -9,34 +9,32 @@
 <body>
     <div class="content">
         <div class="title m-b-md">
-            List Cat
+            List Breed
         </div>
         <table class="table" border="1">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Name</th>
-                    <th>Age</th>
-                    <th>Create At</th>
-                    <th>Update At</th>
-                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
                 <label for=""><a href="{{ route('form-create-cat')}}">Create</label>
-                @foreach($listCats as $cat)
+                @foreach($listBreeds as $breed)
                     <tr>
-                        <td id ="$cat->id">{{$cat->id}}</td>
-                        <td>{{$cat->name}}</td>
-                        <td>{{$cat->age}}</td>
-                        <td>{{$cat->created_at}}</td>
-                        <td>{{$cat->updated_at}}</td>
-                        <td><a href="{{ route('delete-cat', $cat->id) }}">Delete</a></td>
+                        <td>
+                            <a href="{{ route('cateOfBreed',$breed->id) }}">{{$breed->name}}</a>
+                        </td>
+                        <td>
+                            <form action="{{ route('breed-destroy', $breed->id) }} " method="POST">
+                                @csrf
+                                @method('delete')
+                                <input type="submit" value="Delete">
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-
 </body>
 </html>
