@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-//show detail product
+//show detail product fdsaf
 Route::get('/products/{id}','ProductController@show');
 Route::get('/products','ProductController@index');
 
